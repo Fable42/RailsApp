@@ -1,0 +1,16 @@
+<% flash.each do |key, value| %>
+<div data-controller="flash" class="center-h mt-m">
+  <div class=" <%= flash_class(key) %> cl-b text-sm fixed pd-5-10 center">
+    <div>
+      <%= value %>
+    </div>
+
+    <button data-action="flash#dismiss" type="button" class="ml-10 center-v button-flash">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" width="17" height="17">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  
+  </div>
+</div>
+<% end %>

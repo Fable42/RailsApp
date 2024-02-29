@@ -1,0 +1,23 @@
+body {
+  font-family: Jost;
+}
+
+.tittle-lg {
+  font-size: 48px;
+}
+
+.tittle-m {
+  font-size: 32px;
+}
+
+.tittle-sm {
+  font-size: 24px;
+}
+
+.text-m {
+  font-size: 20px;
+}
+
+.text-sm {
+  font-size: 16px;
+}

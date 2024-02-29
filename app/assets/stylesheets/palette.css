@@ -1,0 +1,19 @@
+.cl-w{
+  color: white;
+}
+
+.cl-b{
+  color: black;
+}
+
+.cl-g{
+  color:#777;
+}
+
+.bg-w{
+  background-color: white;
+}
+
+.bg-error{
+  background-color: #E89E9E;
+}

@@ -1,0 +1,27 @@
+<div class = "container_sign center-v-fixed">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="tittle-lg center-h">
+      <div class="cl-w">Tag</div>
+      <div class="cl-g">IT</div>  
+    </div>
+
+    <div>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input_sign tittle-sm mt-lg', placeholder: 'Email' %>
+    </div>
+
+    <div>
+      <%= f.password_field :password, autocomplete: "current-password", class: 'input_sign tittle-sm mt-sm', placeholder: 'Password' %>
+    </div>
+
+    <div>
+      <%= f.submit "Sign in", class: 'button_sign mt-m tittle-m' %>
+    </div>
+
+    <p class="center-h mt-ssm mb-ssm">
+      <span class="line-125 line-l"></span><span class="mv-a text-m cl-g">or</span><span class="line-125 line-r"></span>
+    </p>
+
+    <%= render "devise/shared/links" %>
+  <% end %>
+</div>
+
