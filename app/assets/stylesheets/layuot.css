@@ -1,0 +1,36 @@
+body{
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.container_sign {
+  max-width: 275px;
+}
+
+.center-v-fixed {
+  position: fixed;
+  top: 50%;
+  -ms-transform: translateY(-55%);
+  transform: translateY(-55%);
+}
+
+.center-h {
+  display: flex;
+  justify-content: center;
+}
+
+.fixed{
+  position: fixed;
+}
+
+.center{
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+}
+
+.center-v{
+  display: flex; 
+  align-items: center;
+}

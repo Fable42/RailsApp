@@ -1,39 +1,42 @@
-<h2>Sign up</h2>
+<div class = "container_sign center-v-fixed">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="tittle-lg center-h">
+      <div class="cl-w">Tag</div>
+      <div class="cl-g">IT</div>  
+    </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
+    <div class="field">
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'input_sign tittle-sm mt-lg', placeholder: 'Name' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input_sign tittle-sm mt-sm', placeholder: 'Email' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :tag %><br />
-    <%= f.text_field :tag, autofocus: true, autocomplete: "tag" %>
-  </div>
+    <div class="field">
+      <%= f.text_field :tag, autofocus: true, autocomplete: "tag", class: 'input_sign tittle-sm mt-sm', placeholder: 'Tag' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div>
+      <%= f.password_field :password, autocomplete: "new-password", class: 'input_sign tittle-sm mt-sm', placeholder: 'Password' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'input_sign tittle-sm mt-sm', placeholder: 'Repeat password' %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div>
+      <%= f.submit "Sign up", class: 'button_sign mt-m tittle-m' %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <p class="center-h mt-ssm mb-ssm">
+      <span class="line-125 line-l"></span><span class="mv-a text-m cl-g">or</span><span class="line-125 line-r"></span>
+    </p>
+
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
+</div>

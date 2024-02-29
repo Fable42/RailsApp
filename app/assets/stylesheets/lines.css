@@ -1,0 +1,17 @@
+ /*other choise line in sign/signup*/
+
+ .line-125 {
+  width: 125px; 
+  height: 1px; 
+  background-color: #777777;
+  margin: auto 0;
+  margin-right: 3px;
+}
+
+ .line-r {
+  margin-left: 3px;
+}
+
+.line-l {
+  margin-right: 3px;
+}
