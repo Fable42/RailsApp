@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "main_pages#index"
+
+  resources :posts, only: %i[new create index update edit]
 end

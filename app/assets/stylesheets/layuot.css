@@ -1,8 +1,9 @@
-body{
+.body1{
   background-color: black;
   display: flex;
   justify-content: center;
 }
+
 
 .container_sign {
   max-width: 275px;
