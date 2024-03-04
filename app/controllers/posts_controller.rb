@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+  
   def create
     Post.create( 
       body: params[:post][:body],
