@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-
-  resources :posts, only: %i[new create index update edit destroy]
+  resources :posts
+  #resources :posts, only: %i[new create index update edit destroy]
 
   #resources :posts, only: [:new, :update, :edit, :create, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
