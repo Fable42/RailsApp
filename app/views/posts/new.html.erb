@@ -1,0 +1,19 @@
+<p> New post </p>
+
+<%= form_with model: @post do |form| %>
+
+  <p>
+    <%= form.text_area :body, rows:5, placeholder: 'Post_text' %>
+  </p>
+  
+  <%= form.number_field :user_id, value: current_user.id, type: :hidden %>
+
+  <div>
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <p>
+    <%= form.submit 'Create' %>
+  </p>
+<% end %>
