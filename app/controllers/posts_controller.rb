@@ -1,21 +1,28 @@
 class PostsController < ApplicationController
-  
-  def create
-    Post.create( 
-      body: params[:post][:body],
-      user_id: params[:post][:user_id]
-    )
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
-    redirect_to root_path, notice: 'New post created'
+  def new
+    @post = current_user.posts.build
+  end
+
+  def create
+    @post = current_user.posts.build(post_params)
+
+    if @post.save
+      redirect_to root_path, notice: 'New post created'
+    else
+      render :new
+    end
+  end
+
+  def edit
+    @post = Post.find(params[:id])
   end
 
   def update
     @post = Post.find(params[:id])
 
-    @post.update(
-      body: params[:post][:body],
-      user_id: params[:post][:user_id]
-    )
+    @post.update(post_params)
 
     redirect_to root_path, notice: 'Post edited'
   end
@@ -27,11 +34,14 @@ class PostsController < ApplicationController
     redirect_to root_path, notice: 'Post deleted'
   end
 
-  def new
-    @post = Post.new
+  def correct_user
+    @posts = current_user.posts.find_by(id: params[:id])
+    redirect_to root_path, alert: 'No permittion' if @posts.nil?
   end
 
-  def edit
-    @post = Post.find(params[:id])
+  private
+
+  def post_params
+    params.require(:post).permit(:body, :user_id, :image)
   end
 end

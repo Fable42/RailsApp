@@ -17,12 +17,14 @@
 
 
 <% @posts.each do |post| %>
-  <div style="border: 1px solid black; max-width: 150px;">
+  <div style="border: 1px solid black; max-width: 300px;">
     <p class=""> user: <%= post.user_id %> </p>
 
     <p class=""> post: <%= post.id %> </p>
 
-    <p class=""> text: <%= post.body%> | </p>
+    <p class=""> text: <%= post.body%> </p>
+
+    <%= image_tag post.image, width: "300px" if post.image.attached? %>
 
     <% if current_user.id == post.user_id%> 
       <%= link_to 'Edit post', edit_post_path(post.id) %>
