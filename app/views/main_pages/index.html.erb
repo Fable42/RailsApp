@@ -24,7 +24,11 @@
 
     <p class=""> text: <%= post.body%> </p>
 
-    <%= image_tag post.image, width: "300px" if post.image.attached? %>
+    <% if post.images.attached? %>
+      <% post.images.each do |img|%>
+        <%= image_tag img, width: "300px" %>
+      <% end %>
+    <% end %>
 
     <% if current_user.id == post.user_id%> 
       <%= link_to 'Edit post', edit_post_path(post.id) %>
