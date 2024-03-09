@@ -1,49 +1,11 @@
 <div>Hello <%= current_user.name %> !</div>
 
-<div>ID: <%= current_user.id %></div>
-
-<%= link_to 'sign in', new_user_session_path %>
-
-<%= link_to 'sign up', new_user_registration_path %>
-
 <%= button_to 'sign out', destroy_user_session_path, method: :delete %>
 
 <div class="mb-sm mt-sm">
   <%= button_to 'Add post', new_post_path, method: :get %>
 </div>
 
+<p class="mb-sm mt-lg"> All posts: </p>
 
-<p class="mb-sm mt-lg"> All posts </p>
-
-
-<% @posts.each do |post| %>
-  <div style="border: 1px solid black; max-width: 300px;">
-    <p class=""> user: <%= post.user_id %> </p>
-
-    <p class=""> post: <%= post.id %> </p>
-
-    <p class=""> text: <%= post.body%> </p>
-
-    <% if post.images.attached? %>
-      <% post.images.each do |img|%>
-        <%= image_tag img, width: "300px" %>
-      <% end %>
-    <% end %>
-
-    <% if current_user.id == post.user_id%> 
-      <%= link_to 'Edit post', edit_post_path(post.id) %>
-    <% end %>
-
-    <%= post.likes.count %> Likes
-
-    <% like = current_user.likes.find_by(likeable: post) %>
-    <% if like.nil? %>
-      <%= button_to "Like", likes_path, params: {like: {likeable_id: post.id, likeable_type: Post}}, method: :post %>
-    <% else %>
-      <%= button_to "Unike", like_path(like[:id]), method: :delete %>
-    <% end %>
-      
-    <p class="mb-m"></p>
-  </div>
-<% end %>
-
+<%= render partial: "posts/index" %>

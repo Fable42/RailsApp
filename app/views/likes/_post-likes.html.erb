@@ -1,0 +1,8 @@
+<%= @post.likes.count %> Likes
+
+<% like = current_user.likes.find_by(likeable: @post) %>
+<% if like.nil? %>
+  <%= button_to "Like", likes_path, params: {like: {likeable_id: @post.id, likeable_type: Post}}, method: :post %>
+<% else %>
+  <%= button_to "Unike", like_path(like[:id]), method: :delete %>
+<% end %>
