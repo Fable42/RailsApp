@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :posts
+  resources :likes, only: %i[ create destroy ]
   #resources :posts, only: %i[new create index update edit destroy]
 
   #resources :posts, only: [:new, :update, :edit, :create, :destroy]
