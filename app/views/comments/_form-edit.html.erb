@@ -1,0 +1,9 @@
+<%= form_with model: @comment, url: post_comment_path(@post, comment), method: :patch do |form| %>
+  <p><%= form.text_area :body, rows: 5, placeholder: 'Post_text', value: comment.id %></p>
+  
+  <p><%= form.submit 'Edit comment' %></p>
+
+<% end %>
+
+
+

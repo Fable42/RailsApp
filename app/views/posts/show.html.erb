@@ -18,10 +18,13 @@
   <%= link_to 'Back', :back %>
 
   <%= render partial: "likes/post-likes" %>
+  <hr />
+
+  <p class="mb-sm"> Comments: </p>
 
   <%= render partial: "comments/comment", collection: @post.comments, as: :comment, locals: { post: @post } %>
 
-  <%= render partial: "comments/form", locals: { comment: @comment, post: @post } %>
+  <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
     
   <p class="mb-m"></p>
 </div>

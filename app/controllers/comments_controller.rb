@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :correct_user, only: %i[destroy]
-  before_action :set_comment, only: %i[destroy]
+  before_action :set_post, only: %i[destroy update]
+  before_action :set_comment, only: %i[update]
 
   def create
     @comment = current_user.comments.create(comment_params)
@@ -12,6 +13,19 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     redirect_to post_path(params[:post_id]), notice: 'Comment deleted'
+  end
+
+  def update
+    @comment = @post.comments.find(params[:id])
+    @comment.update(comment_params)
+
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to post_url(@post), notice: 'Comment has been updated'}
+      else 
+        format.html { redirect_to post_url(@post), alert: 'Comment was not updated'}
+      end
+    end
   end
 
   private 
@@ -27,5 +41,9 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def set_post
+    @post = Post.find(params[:post_id])
   end
 end

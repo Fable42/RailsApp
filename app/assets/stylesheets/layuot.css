@@ -4,6 +4,9 @@
   justify-content: center;
 }
 
+.d-none {
+  display: none;
+}
 
 .container_sign {
   max-width: 275px;
