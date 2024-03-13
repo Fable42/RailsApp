@@ -1,0 +1,33 @@
+<p id="comment-body-<%= comment.id %>">
+  <%= comment.body %>
+</p>
+
+<div><%= comment.user.tag %></div>
+
+<% if comment.updated_at - comment.created_at > 1%> 
+  <div> Edited <%= time_ago_in_words(comment.updated_at) %> ago </div>
+<% else %>
+  <div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
+<% end %>
+
+<% if current_user.id == comment.user_id %> 
+  <div>
+    <%= link_to "Edit comment", nil, remote: true, 
+    data: {
+      controller: "comments", 
+      action: "comments#toggleForm",
+      comments_form_param: "edit-form-#{comment.id}",
+      comments_body_param: "comment-body-#{comment.id}"
+    } %>
+
+    <%= button_to 'Delete comment', post_comment_path(post, comment), method: :delete %>
+  </div>
+
+  <div id="edit-form-<%= comment.id %>" class="d-none" >
+    <%= render partial: "comments/form-edit", locals: { comment: comment, post: @post } %>
+  </div>
+<% end %>
+
+<%= render partial: "likes/comment-likes", locals: { comment: comment } %>
+
+<hr / class="mb-ssm">

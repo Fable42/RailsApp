@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: %i[ edit update destroy]
+  before_action :set_post, only: %i[ show edit update destroy]
 
   def new
     @post = current_user.posts.build
@@ -16,19 +17,18 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+  end
+
+  def show
   end
 
   def update
-    @post = Post.find(params[:id])
-
     @post.update(post_params)
 
     redirect_to root_path, notice: 'Post edited'
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
 
     redirect_to root_path, notice: 'Post deleted'
@@ -42,6 +42,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body, :user_id,images: [])
+    params.require(:post).permit(:body, :user_id, images: [])
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end

@@ -1,0 +1,30 @@
+<div style="border: 1px solid black; max-width: 300px;">
+  <p class=""> user: <%= @post.user_id %> </p>
+
+  <p class=""> post: <%= @post.id %> </p>
+
+  <p class=""> text: <%= @post.body%> </p>
+
+  <% if @post.images.attached? %>
+    <% @post.images.each do |img|%>
+      <%= image_tag img, width: "300px" %>
+    <% end %>
+  <% end %>
+
+  <% if current_user.id == @post.user_id%> 
+    <%= link_to 'Edit post', edit_post_path(@post.id) %>
+  <% end %>
+
+  <%= link_to 'Back', :back %>
+
+  <%= render partial: "likes/post-likes", locals: { post: @post } %>
+  <hr />
+
+  <p class="mb-sm"> Comments: </p>
+
+  <%= render partial: "comments/comment", collection: @post.comments, as: :comment, locals: { post: @post } %>
+
+  <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
+    
+  <p class="mb-m"></p>
+</div>
