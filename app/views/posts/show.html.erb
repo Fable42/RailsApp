@@ -17,7 +17,7 @@
 
   <%= link_to 'Back', :back %>
 
-  <%= render partial: "likes/post-likes" %>
+  <%= render partial: "likes/post-likes", locals: { post: @post } %>
   <hr />
 
   <p class="mb-sm"> Comments: </p>

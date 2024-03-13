@@ -27,4 +27,7 @@
     <%= render partial: "comments/form-edit", locals: { comment: comment, post: @post } %>
   </div>
 <% end %>
+
+<%= render partial: "likes/comment-likes", locals: { comment: comment } %>
+
 <hr / class="mb-ssm">
