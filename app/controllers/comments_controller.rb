@@ -1,15 +1,14 @@
 class CommentsController < ApplicationController
-  before_action :correct_user, only: %i[destroy]
   before_action :set_post, only: %i[destroy update]
-  before_action :set_comment, only: %i[update]
 
   def create
     @comment = current_user.comments.create(comment_params)
 
-    redirect_to post_path(params[:post_id]), notice: 'Comment deleted'
+    redirect_to post_path(params[:post_id]), notice: 'Comment created'
   end
 
   def destroy
+    @comment = @post.comments.find(params[:id])
     @comment.destroy
 
     redirect_to post_path(params[:post_id]), notice: 'Comment deleted'
@@ -30,17 +29,8 @@ class CommentsController < ApplicationController
 
   private 
 
-  def correct_user
-    @comment = current_user.comments.find_by(id: params[:id])
-    redirect_to root_path, alert: 'No permittion' if @comment.nil?
-  end
-
   def comment_params  
-    params.permit(:body).merge(post_id: params[:post_id])
-  end
-
-  def set_comment
-    @comment = Comment.find(params[:id])
+    params.require(:comment).permit(:body).merge(post_id: params[:post_id])
   end
 
   def set_post
