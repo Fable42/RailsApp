@@ -1,4 +1,4 @@
-<div>Hello <%= link_to current_user.name, edit_user_registration_path %>!
+<div>Hello <%= link_to current_user.name, profile_path(current_user.id) %>!
 
   <% if current_user.profile_image.attached? %>
     <%= image_tag(current_user.profile_image, style: "height: 50px; width: 50px;") %>

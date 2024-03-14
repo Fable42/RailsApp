@@ -6,3 +6,12 @@
 <% if current_user.id == @user.id %> 
   <%= link_to 'Edit profile', edit_user_registration_path %>
 <% end %>
+
+
+<%= form_with model: @follow do |form| %>
+
+  <%= form.number_field :follow_id, type: :hidden %>
+
+  <%= form.submit "Follow" %>
+
+<% end %>

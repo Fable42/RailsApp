@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations:
-    'users/registrations' }
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
 
   resources :profiles, only: [:show]
 
   resources :posts do
     resources :comments, only: %i[ create destroy update ]
   end
-  resources :likes, only: %i[ create destroy ]
-  #resources :posts, only: %i[new create index update edit destroy]
 
-  #resources :posts, only: [:new, :update, :edit, :create, :destroy]
+  resources :likes, only: %i[ create destroy ]
+
+  resources :follows, only: %i[ create destroy ]
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
