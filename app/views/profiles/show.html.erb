@@ -7,11 +7,8 @@
   <%= link_to 'Edit profile', edit_user_registration_path %>
 <% end %>
 
-
-<%= form_with model: @follow do |form| %>
-
-  <%= form.number_field :follow_id, type: :hidden %>
-
-  <%= form.submit "Follow" %>
-
-<% end %>
+<% if current_user.followees.include?(@user) %>
+  <div><%= button_to "Unfollow", unfollow_user_path, method: :post %></div>
+<% else %>
+  <div><%= button_to "Follow", follow_user_path, method: :post  %></div>
+<% end%>
