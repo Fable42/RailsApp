@@ -1,0 +1,8 @@
+<h1>Profile#show</h1>
+<p>Find me in app/views/profile/show.html.erb</p>
+<%= @user.name %>
+<%= @user.tag %>
+
+<% if current_user.id == @user.id %> 
+  <%= link_to 'Edit profile', edit_user_registration_path %>
+<% end %>

@@ -1,4 +1,10 @@
-<div>Hello <%= current_user.name %> !</div>
+<div>Hello <%= link_to current_user.name, edit_user_registration_path %>!
+
+  <% if current_user.profile_image.attached? %>
+    <%= image_tag(current_user.profile_image, style: "height: 50px; width: 50px;") %>
+  <% end %>
+
+</div>
 
 <%= button_to 'sign out', destroy_user_session_path, method: :delete %>
 
@@ -7,5 +13,5 @@
 </div>
 
 <p class="mb-sm mt-lg"> All posts: </p>
-
 <%= render partial: "posts/index" %>
+
