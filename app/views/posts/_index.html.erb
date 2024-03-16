@@ -33,11 +33,11 @@
     <% end %>
 
     <p>
-      <% if post .comments.size > 0 %>
+      <% if post.comments.size > 0 %>
       <div><%= link_to " view all comments (#{post.comments.size})", post_path(post.id) %></div>
       <% end %>
     </p>
       
-    <p class="mb-m"></p>
+    <%= render partial: "comments/form-new", locals: { comment: @comment, post: post } %>
   </div>
 <% end %>

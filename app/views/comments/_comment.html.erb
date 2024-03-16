@@ -2,7 +2,9 @@
   <%= comment.body %>
 </p>
 
-<div><%= comment.user.tag %></div>
+<div><%= comment.user.name %></div>
+
+<%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
 <% if comment.updated_at - comment.created_at > 1%> 
   <div> Edited <%= time_ago_in_words(comment.updated_at) %> ago </div>
