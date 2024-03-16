@@ -1,16 +1,17 @@
-<h1>Profile#show</h1>
-<p>Find me in app/views/profile/show.html.erb</p>
+<%= user_profile_image(current_user, css_class: '') %>
+
 <%= @user.name %>
+
 <%= @user.tag %>
 
-<% if current_user.id == @user.id %> 
-  <%= link_to 'Edit profile', edit_user_registration_path %>
-<% end %>
+<p> Followers: <%= @user.followers.size %> </p>
 
-<% if current_user.followees.include?(@user) %>
-  <div><%= button_to "Unfollow", unfollow_user_path, method: :post %></div>
-<% else %>
-  <div><%= button_to "Follow", follow_user_path, method: :post  %></div>
-<% end%>
+<p> Followings: <%= @user.followees.size %> </p>
 
-<%= link_to "Back", root_path %>
+<p> Posts: <%= @user.posts.size %> </p>
+
+<%= user_action_link(current_user, @user, css_class: '') %>
+
+<%= display_posts(@posts, css_class: '' ) %>
+
+<p><%= link_to "Back", root_path %></p>

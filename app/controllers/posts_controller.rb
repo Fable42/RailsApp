@@ -12,7 +12,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path, notice: 'New post created'
     else
-      render :new
+      flash.now[:alert] = @post.errors.full_messages.join(', ')
+      render :new, status: 422
     end
   end
 
