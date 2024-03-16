@@ -8,7 +8,7 @@
   <p><%= form.text_area :body, rows: 1, placeholder: 'Post_text' %></p>
   <%= form.hidden_field :parent_id, value: '', id: 'parent_id_field' %>
   
-  <p><%= form.submit 'Add comment' %></p>
+  <p><%= form.submit 'Add comment', id: 'submit_button' %></p>
 <% end %>
 
 
