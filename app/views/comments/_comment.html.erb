@@ -4,6 +4,11 @@
 
 <div><%= comment.user.name %></div>
 
+<div> replyed to:
+  <% if comment.parent_id %>
+    <%= Comment.find(comment.parent_id).user.name %>
+  <% end %>
+</div>
 <%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
 <% if comment.updated_at - comment.created_at > 1%> 
@@ -22,7 +27,7 @@
       comments_body_param: "comment-body-#{comment.id}"
     } %>
 
-    <%= button_to 'Delete comment', post_comment_path(post, comment), method: :delete %>
+    <%= button_to 'Delete comment', post_comment_path(@post, comment), method: :delete %>
   </div>
 
   <div id="edit-form-<%= comment.id %>" class="d-none" >
@@ -32,4 +37,12 @@
 
 <%= render partial: "likes/comment-likes", locals: { comment: comment } %>
 
+<a href="#">reply</a>
+
 <hr / class="mb-ssm">
+
+<div class="ml-10">
+  <%= render comment.comments %>
+</div>
+
+
