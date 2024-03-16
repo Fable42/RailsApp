@@ -1,22 +1,19 @@
 <% @posts.each do |post| %>
   <div style="border: 1px solid black; max-width: 300px;">
-    <p class=""> user: <%= post.user_id %> </p>
 
-    <p class=""> post: <%= post.id %> </p>
+    <%= image_tag(post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
-    <p class=""> text: <%= post.body%> </p>
+    <p class=""> user: <%= post.user.name %> </p>
 
-    <% if post.images.attached? %>
-      <% post.images.each do |img|%>
-        <%= image_tag img, width: "300px" %>
-      <% end %>
+    <% if post.updated_at - post.created_at > 1%> 
+      <div> Edited <%= time_ago_in_words(post.updated_at) %> ago </div>
+    <% else %>
+      <div> Posted <%= time_ago_in_words(post.created_at) %> ago </div>
     <% end %>
 
-    <% if current_user.id == post.user_id%> 
-      <%= link_to 'Edit post', edit_post_path(post.id) %>
+    <% post.images.each do |img|%>
+      <%= image_tag img, width: "300px" %>
     <% end %>
-
-    <p><%= link_to "Show", post_path(post.id) %> </p>
 
     <%= post.likes.count %> Likes
 
@@ -26,6 +23,20 @@
     <% else %>
       <%= button_to "Unike", like_path(like[:id]), method: :delete %>
     <% end %>
+
+    <p class=""> 
+      <div> <%= post.user.name %> : <%= post.body %> </div>
+    </p>
+
+    <% if current_user.id == post.user_id%> 
+      <%= link_to 'Edit post', edit_post_path(post.id) %>
+    <% end %>
+
+    <p>
+      <% if post .comments.size > 0 %>
+      <div><%= link_to " view all comments (#{post.comments.size})", post_path(post.id) %></div>
+      <% end %>
+    </p>
       
     <p class="mb-m"></p>
   </div>
