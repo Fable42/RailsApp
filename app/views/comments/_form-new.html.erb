@@ -1,5 +1,12 @@
-<%= form_with model: [post, Comment.create] do |form| %>
+<%= form_with model: [post, Comment.create], id: 'comment_form' do |form| %>
+
+  <div id="reply_to" class="d-none">replying to:
+    <div id="user_name"></div>
+    <%= link_to "cancel", "#", data: { controller: "comments", action: "click->comments#cancel" } %>
+  </div>
+
   <p><%= form.text_area :body, rows: 1, placeholder: 'Post_text' %></p>
+  <%= form.hidden_field :parent_id, value: '', id: 'parent_id_field' %>
   
   <p><%= form.submit 'Add comment' %></p>
 <% end %>

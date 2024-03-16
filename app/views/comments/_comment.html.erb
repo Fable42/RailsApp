@@ -37,7 +37,7 @@
 
 <%= render partial: "likes/comment-likes", locals: { comment: comment } %>
 
-<a href="#">reply</a>
+<%= link_to "reply", "#", data: { controller: "comments", action: "click->comments#reply", comment_id: comment.id,user_name: comment.user.name } %>
 
 <hr / class="mb-ssm">
 
