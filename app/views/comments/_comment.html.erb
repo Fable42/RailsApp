@@ -1,4 +1,4 @@
-<p id="comment-body-<%= comment.id %>">
+<p>
   <%= comment.body %>
 </p>
 
@@ -6,7 +6,7 @@
 
 <div> replyed to:
   <% if comment.parent_id %>
-    <%= Comment.find(comment.parent_id).user.name %>
+    <%= comment.parent.user.name %>
   <% end %>
 </div>
 <%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
