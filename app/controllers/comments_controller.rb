@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_post, only: %i[destroy update edit]
+  before_action :set_post, only: %i[destroy]
 
   def create
     @comment = current_user.comments.create(comment_params)
@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @post.comments.includes(:user).find(params[:id])
+    @comment = @post.comments.find(params[:id])
     @comment.destroy
 
     redirect_to post_path(params[:post_id]), notice: 'Comment deleted'
@@ -21,6 +21,6 @@ class CommentsController < ApplicationController
   end
 
   def set_post
-    @post = Post.includes(:user).find(params[:id])
+    @post = Post.includes(:user).find(params[:post_id])
   end
 end

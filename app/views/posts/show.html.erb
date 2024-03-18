@@ -26,7 +26,7 @@
 
   <p class="mb-sm"> Comments: </p>
 
-  <%= render @post.comments.includes.where(parent_id: nil).order(id: :desc) %>
+  <%= render @post.comments.where(parent_id: nil).order(id: :desc) %>
 
   <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
     
