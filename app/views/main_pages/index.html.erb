@@ -17,3 +17,14 @@
 <p class="mb-sm mt-lg"> All posts: </p>
 <%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
 
+<div> Following: </div>
+<% current_user.followees.each do |followee| %>
+  <%= link_to followee.name, profile_path(followee) %>
+
+  <% followed = current_user.followed_users.find_by(followee_id: followee.id) %>
+  <% if followed.pinned %>
+    <%= button_to 'Unpin', unpin_user_path(followee), method: :post %>
+  <% else %>
+    <%= button_to 'Pin', pin_user_path(followee), method: :post %>
+  <% end %>
+<% end %>

@@ -9,7 +9,7 @@
   <div> replyed to <%= comment.parent.user.name %>'s: <%= comment.parent.body.split[0..2].join(' ') %> </div>
 <% end %>
 
-<%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
+<%= image_tag(comment.user.profile_image, style: "height: 50px; width: 50px;") %>
 
 <div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
 
