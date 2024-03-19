@@ -15,5 +15,5 @@
 </div>
 
 <p class="mb-sm mt-lg"> All posts: </p>
-<%= render partial: "posts/index" %>
+<%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
 

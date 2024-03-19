@@ -1,15 +1,21 @@
 <div style="border: 1px solid black; max-width: 300px;">
-  <p class=""> user: <%= @post.user_id %> </p>
+  <%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
-  <p class=""> post: <%= @post.id %> </p>
+  <p class=""> user: <%= @post.user.name %> </p>
 
-  <p class=""> text: <%= @post.body%> </p>
-
-  <% if @post.images.attached? %>
-    <% @post.images.each do |img|%>
-      <%= image_tag img, width: "300px" %>
-    <% end %>
+  <% if @post.updated_at - @post.created_at > 1%> 
+    <div> Edited <%= time_ago_in_words(@post.updated_at) %> ago </div>
+  <% else %>
+    <div> Posted <%= time_ago_in_words(@post.created_at) %> ago </div>
   <% end %>
+
+  <% @post.images.each do |img|%>
+    <%= image_tag img, width: "300px" %>
+  <% end %>
+
+  <p class=""> 
+    <div> <%= @post.user.name %> : <%= @post.body %> </div>
+  </p>
 
   <% if current_user.id == @post.user_id%> 
     <%= link_to 'Edit post', edit_post_path(@post.id) %>
@@ -20,11 +26,11 @@
 
   <p class="mb-sm"> Comments: </p>
 
-  <%= render partial: "comments/comment", collection: @post.comments, as: :comment, locals: { post: @post } %>
+  <%= render @post.comments.where(parent_id: nil).order(id: :desc) %>
 
   <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
     
   <p class="mb-m"></p>
 </div>
 
-<%= link_to "Back", :back %>
+<%= link_to "Back", root_path %>
