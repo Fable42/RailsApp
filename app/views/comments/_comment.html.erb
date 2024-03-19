@@ -4,11 +4,11 @@
 
 <div><%= comment.user.name %></div>
 
-<div> replyed to:
-  <% if comment.parent_id %>
-    <%= comment.parent.user.name %>
-  <% end %>
-</div>
+
+<% if comment.parent_id %>
+  <div> replyed to <%= comment.parent.user.name %>'s: <%= comment.parent.body.split[0..2].join(' ') %> </div>
+<% end %>
+
 <%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
 <div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
@@ -25,7 +25,7 @@
 
 <hr / class="mb-ssm">
 
-<div class="<%= nested_margin(comment) %>">
+<div>
   <%= render comment.comments.order(id: :desc) %>
 </div>
 
