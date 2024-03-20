@@ -3,7 +3,7 @@
 
     <%= image_tag(post.user.profile_image, style: "height: 50px; width: 50px;") %>
 
-    <p class=""> user: <%= post.user.name %> </p>
+    <p class=""> user: <%= link_to post.user.name, profile_path(post.user) %> </p>
 
     <% if post.updated_at - post.created_at > 1%> 
       <div> Edited <%= time_ago_in_words(post.updated_at) %> ago </div>
@@ -17,11 +17,13 @@
 
     <%= post.likes.count %> Likes
     
-    <div> liked by:
-      <% liked_by(post, current_user).each do |image| %>
-        <%= image_tag image, style:'width: 30px' %>
-      <% end %>    
-    </div>
+    <% if post.likes.count > 0 %>
+      <div> liked by:
+        <% liked_by(post, current_user).each do |image| %>
+          <%= image_tag image, style:'width: 30px' %>
+        <% end %>    
+      </div>
+    <% end %>
 
     <% like = current_user.likes.find_by(likeable: post) %>
     <% if like.nil? %>

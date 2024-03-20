@@ -19,7 +19,7 @@ module ProfileHelper
 
   def user_profile_image(user, css_class: '')
     if user.profile_image.attached?
-      image_tag(user.profile_image, class: css_class, style: "height: 50px; width: 50px;")
+      image_tag(user.profile_image, class: css_class, style: "height: 100px; width: 100px;")
     end
   end
 end
