@@ -17,3 +17,23 @@
 <p class="mb-sm mt-lg"> All posts: </p>
 <%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
 
+<div> Following: </div>
+<% sorted_followees.each do |followee| %>
+  <%= image_tag(followee.profile_image, style: "height: 30px; width: 30px;") %>
+  <%= link_to followee.name, profile_path(followee) %>
+
+  <%  if followee.posts.any? %>
+    <div><%= time_ago_in_words(followee.posts.maximum(:created_at)) %> ago</div>
+  <% else %>
+    <p> No publications yet </p>
+  <% end %>
+
+  <% followed = current_user.followed_users.find_by(followee_id: followee.id) %>
+  <% if followed.pinned %>
+    <%= button_to 'Unpin', unpin_user_path(followee), method: :post %>
+  <% else %>
+    <%= button_to 'Pin', pin_user_path(followee), method: :post %>
+  <% end %>
+<% end %>
+
+

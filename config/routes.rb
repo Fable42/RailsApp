@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   post '/users/:id/follow', to: "users#follow", as: "follow_user"
   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
+  post '/users/:id/pin', to: "users#pin", as: "pin_user"
+  post '/users/:id/unpin', to: "users#unpin", as: "unpin_user"
 
   resources :profiles, only: [:show]
 
