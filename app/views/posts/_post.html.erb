@@ -1,0 +1,52 @@
+<div style="border: 1px solid black; max-width: 300px;">
+
+  <%= post.id %>
+
+  <%= image_tag(post.user.profile_image, style: "height: 50px; width: 50px;") %>
+
+  <p class=""> user: <%= link_to post.user.name, profile_path(post.user) %> </p>
+
+  <% if post.updated_at - post.created_at > 1%> 
+    <div> Edited <%= time_ago_in_words(post.updated_at) %> ago </div>
+  <% else %>
+    <div> Posted <%= time_ago_in_words(post.created_at) %> ago </div>
+  <% end %>
+
+  <% post.images.each do |img|%>
+    <%= image_tag img, width: "300px" %>
+  <% end %>
+
+  <%= post.likes.count %> Likes
+
+  <% if post.likes.count > 0 %>
+    <div> liked by:
+      <% liked_by(post, current_user).each do |image| %>
+        <%= image_tag image, style:'width: 30px' %>
+      <% end %>    
+    </div>
+  <% end %>
+
+  <% like = current_user.likes.find_by(likeable: post) %>
+  <% if like.nil? %>
+    <%= button_to "Like", likes_path, params: {like: {likeable_id: post.id, likeable_type: Post}}, method: :post %>
+  <% else %>
+    <%= button_to "Unike", like_path(like[:id]), method: :delete %>
+  <% end %>
+
+  <p class=""> 
+    <div> <%= post.user.name %> : <%= post.body %> </div>
+  </p>
+
+  <% if current_user.id == post.user_id%> 
+    <%= link_to 'Edit post', edit_post_path(post.id) %>
+  <% end %>
+
+  <p>
+    <% if post.comments.size > 0 %>
+    <div><%= link_to " view all comments (#{post.comments.size})", post_path(post.id) %></div>
+    <% end %>
+  </p>
+    
+  <%= render partial: "comments/form-new", locals: { comment: @comment, post: post } %>
+
+</div>

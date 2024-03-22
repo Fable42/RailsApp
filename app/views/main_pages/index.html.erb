@@ -21,7 +21,7 @@
   data-pagination-target="posts"
   data-pagination-url-value="<%= posts_url %>"
   data-pagination-page-value="<%= 2 %>">
-  <%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
+  <%= render partial: "posts/post", collection: @posts, locals: { user: @user, comment: @comment } %>
 </div>
 
 <div> Following: </div>

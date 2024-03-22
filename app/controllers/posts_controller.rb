@@ -40,6 +40,15 @@ class PostsController < ApplicationController
     redirect_to root_path, alert: 'No permittion' if @posts.nil?
   end
 
+
+  ###############
+  def index
+    #@posts = Post.all
+
+    @page = params[:page] || 1 
+    @posts = Post.page @page
+  end
+
   private
 
   def post_params

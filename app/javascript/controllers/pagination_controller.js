@@ -25,7 +25,7 @@ export default class extends Controller {
   scroll() {
     if (this.#pageEnd && !this.fetching && !this.hasNoRecordsTarget) {
 
-      this.postsTarget.insertAdjastmentHTML("beforeend", spinner);
+      this.postsTarget.insertAdjacentHTML("beforeend", spinner);
 
       this.#loadRecords();
     }
