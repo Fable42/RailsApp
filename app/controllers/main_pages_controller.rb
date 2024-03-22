@@ -1,8 +1,6 @@
 class MainPagesController < ApplicationController
   def index
-    #@posts = Post.all
-
     @page = params[:page] || 1 
-    @posts = Post.page @page
+    @posts = Post.order(created_at: :desc).page @page
   end
 end
