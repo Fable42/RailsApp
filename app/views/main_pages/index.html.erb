@@ -15,7 +15,14 @@
 </div>
 
 <p class="mb-sm mt-lg"> All posts: </p>
-<%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
+
+<div id="posts" 
+  data-controller="pagination"
+  data-pagination-target="posts"
+  data-pagination-url-value="<%= posts_url %>"
+  data-pagination-page-value="<%= 2 %>">
+  <%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
+</div>
 
 <div> Following: </div>
 <% sorted_followees.each do |followee| %>
