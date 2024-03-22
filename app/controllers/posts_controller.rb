@@ -48,6 +48,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
+    if action_name == 'update' && params[:post][:images].first.empty?
+      params[:post].delete(:images)
+    end
+    
     params.require(:post).permit(:body, :user_id, images: [])
   end
 
