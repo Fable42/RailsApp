@@ -10,13 +10,6 @@
 
 <%= button_to 'sign out', destroy_user_session_path, method: :delete %>
 
-<div class="mb-sm mt-sm">
-  <%= button_to 'Add post', new_post_path, method: :get %>
-</div>
-
-<p class="mb-sm mt-lg"> All posts: </p>
-<%= render partial: "posts/index", locals: { user: @user, comment: @comment }%>
-
 <div> Following: </div>
 <% sorted_followees.each do |followee| %>
   <%= image_tag(followee.profile_image, style: "height: 30px; width: 30px;") %>
@@ -36,4 +29,17 @@
   <% end %>
 <% end %>
 
+<div class="mb-sm mt-sm">
+  <%= button_to 'Add post', new_post_path, method: :get %>
+</div>
+
+<p class="mb-sm mt-lg"> All posts: </p>
+
+<div id="posts" 
+  data-controller="pagination"
+  data-pagination-target="posts"
+  data-pagination-url-value="<%= posts_url %>"
+  data-pagination-page-value="<%= 2 %>">
+  <%= render @posts, locals: { user: @user, comment: @comment } %>
+</div>
 

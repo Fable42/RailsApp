@@ -40,9 +40,18 @@ class PostsController < ApplicationController
     redirect_to root_path, alert: 'No permittion' if @posts.nil?
   end
 
+  def index
+    @page = params[:page] || 1 
+    @posts = Post.order(created_at: :desc).page @page
+  end
+
   private
 
   def post_params
+    if action_name == 'update' && params[:post][:images].first.empty?
+      params[:post].delete(:images)
+    end
+    
     params.require(:post).permit(:body, :user_id, images: [])
   end
 
