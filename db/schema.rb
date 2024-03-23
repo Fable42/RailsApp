@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_145615) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_23_203411) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,6 +94,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_145615) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "views", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
+    t.datetime "viewed_at"
+    t.integer "view_time"
+    t.index ["post_id"], name: "index_views_on_post_id"
+    t.index ["user_id"], name: "index_views_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
@@ -101,4 +110,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_145615) do
   add_foreign_key "follows", "users", column: "followee_id"
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "likes", "users"
+  add_foreign_key "views", "posts"
+  add_foreign_key "views", "users"
 end
