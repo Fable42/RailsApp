@@ -49,4 +49,6 @@
     
   <%= render partial: "comments/form-new", locals: { comment: @comment, post: post } %>
 
+  <div data-controller="view" id="<%= post.id %>"></div>
+
 </div>

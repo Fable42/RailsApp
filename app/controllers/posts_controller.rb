@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :correct_user, only: %i[ edit update destroy]
-  before_action :set_post, only: %i[ show edit update destroy]
+  before_action :set_post, only: %i[ show edit update destroy view]
 
   def new
     @post = current_user.posts.build
@@ -43,6 +43,16 @@ class PostsController < ApplicationController
   def index
     @page = params[:page] || 1 
     @posts = Post.order(created_at: :desc).page @page
+  end
+
+  def view 
+    view = @post.views.new(user: current_user, viewed_at: Time.current)
+    if view.save
+      # Все в порядке, просмотр был успешно создан
+    else
+      # Что-то пошло не так, выводим ошибки для отладки
+      puts view.errors.full_messages
+    end
   end
 
   private
