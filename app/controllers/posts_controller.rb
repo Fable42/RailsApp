@@ -45,13 +45,14 @@ class PostsController < ApplicationController
     @posts = Post.order(created_at: :desc).page @page
   end
 
-  def view 
-    view = @post.views.new(user: current_user, viewed_at: Time.current)
-    if view.save
-      # Все в порядке, просмотр был успешно создан
-    else
-      # Что-то пошло не так, выводим ошибки для отладки
-      puts view.errors.full_messages
+  def view
+    last_view = @post.views.where(user: current_user).order(viewed_at: :desc).first
+    
+    if last_view.nil? || Time.current - last_view.viewed_at > 6.hours
+      view = @post.views.new(user: current_user, viewed_at: Time.current)
+      unless view.save
+        puts view.errors.full_messages
+      end
     end
   end
 

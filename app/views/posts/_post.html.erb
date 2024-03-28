@@ -33,6 +33,8 @@
     <%= button_to "Unike", like_path(like[:id]), method: :delete %>
   <% end %>
 
+  <div> Views: <%= View.where(post_id: post.id).count %></div>
+
   <p class=""> 
     <div> <%= post.user.name %> : <%= post.body %> </div>
   </p>
