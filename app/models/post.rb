@@ -5,6 +5,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :views, dependent: :destroy
 
+  #before_save :like_rate_calc
+
   #must contain at least one image or video
   validate :file_type, :images_presence
 

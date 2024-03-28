@@ -16,9 +16,9 @@
     <%= image_tag img, width: "300px" %>
   <% end %>
 
-  <%= post.likes.count %> Likes
+  <%= post.likes_count %> Likes
 
-  <% if post.likes.count > 0 %>
+  <% if post.likes_count > 0 %>
     <div> liked by:
       <% liked_by(post, current_user).each do |image| %>
         <%= image_tag image, style:'width: 30px' %>
@@ -33,7 +33,9 @@
     <%= button_to "Unike", like_path(like[:id]), method: :delete %>
   <% end %>
 
-  <div> Views: <%= View.where(post_id: post.id).count %></div>
+  <div> Views: <%= post.views_count %></div>
+
+  <div> LIKE RATE: <%= post.like_rate %></div>
 
   <p class=""> 
     <div> <%= post.user.name %> : <%= post.body %> </div>
@@ -44,8 +46,8 @@
   <% end %>
 
   <p>
-    <% if post.comments.size > 0 %>
-    <div><%= link_to " view all comments (#{post.comments.size})", post_path(post.id) %></div>
+    <% if post.comments_count > 0 %>
+    <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
     <% end %>
   </p>
     
