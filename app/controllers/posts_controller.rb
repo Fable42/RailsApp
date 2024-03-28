@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :correct_user, only: %i[ edit update destroy]
-  before_action :set_post, only: %i[ show edit update destroy]
+  before_action :correct_user, only: %i[ edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy view ]
 
   def new
     @post = current_user.posts.build
@@ -43,6 +43,22 @@ class PostsController < ApplicationController
   def index
     @page = params[:page] || 1 
     @posts = Post.order(created_at: :desc).page @page
+  end
+
+  def view
+    last_view = @post.views.where(user: current_user).order(viewed_at: :desc).first
+    
+    if last_view.nil?
+      @post.increment!(:unique_views_count)
+      view = @post.views.create(user: current_user, viewed_at: Time.current)
+    elsif  Time.current - last_view.viewed_at > 6.hours
+      view = @post.views.create(user: current_user, viewed_at: Time.current)
+    end
+
+    if @post.unique_views_count > 0
+      @post.like_rate = (@post.likes_count.to_f * 100 / @post.unique_views_count).round(1)
+      @post.save
+    end
   end
 
   private

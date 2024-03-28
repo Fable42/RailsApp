@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  post: one
+  viewed_at: 2024-03-23 23:34:11
+  view_time: 1
+
+two:
+  user: two
+  post: two
+  viewed_at: 2024-03-23 23:34:11
+  view_time: 1

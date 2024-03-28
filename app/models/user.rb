@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :likes
   has_many :comments
+  has_many :views
   has_one_attached :profile_image
 
   #follow associations

@@ -1,8 +1,11 @@
 class Post < ApplicationRecord
   belongs_to :user
-  has_many_attached :images
+  has_many_attached :images, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :views, dependent: :destroy
+
+  #before_save :like_rate_calc
 
   #must contain at least one image or video
   validate :file_type, :images_presence
