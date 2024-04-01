@@ -1,4 +1,14 @@
-<%= post.likes.count %> Likes
+<div id="post-likes">
+  <%= post.likes.count %> Likes
+
+  <% if post.likes_count > 0 %>
+  <div> liked by:
+    <% liked_by(post, current_user).each do |image| %>
+      <%= image_tag image, style:'width: 30px' %>
+    <% end %>    
+  </div>
+  <% end %>
+</div>
 
 <% like = current_user.likes.find_by(likeable: post) %>
 <% if like.nil? %>
