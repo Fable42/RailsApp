@@ -10,6 +10,13 @@ class Post < ApplicationRecord
   #must contain at least one image or video
   validate :file_type, :images_presence
 
+  def calculate_like_rate
+    if self.unique_views_count > 0
+      self.like_rate = (self.likes_count.to_f * 100 / self.unique_views_count).round(1)
+      self.save
+    end
+  end
+
   private
 
   def file_type

@@ -1,4 +1,6 @@
 class LikesController < ApplicationController  
+  after_action :calc_like_rate
+
   def create
     @like = current_user.likes.new(like_params)
 
@@ -25,5 +27,10 @@ class LikesController < ApplicationController
 
   def like_params
     params.require(:like).permit(:likeable_id, :likeable_type)
+  end
+
+  def calc_like_rate
+    @post = @like.likeable
+    @post.calculate_like_rate
   end
 end
