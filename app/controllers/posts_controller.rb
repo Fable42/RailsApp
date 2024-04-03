@@ -40,13 +40,6 @@ class PostsController < ApplicationController
     @posts = Post.order(created_at: :desc).page @page
   end
 
-  def view
-    if @post.unique_views_count > 0
-      @post.like_rate = (@post.likes_count.to_f * 100 / @post.unique_views_count).round(1)
-      @post.save
-    end
-  end
-
   private
 
   def post_params

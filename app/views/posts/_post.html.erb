@@ -32,7 +32,7 @@
 
   <p>
     <% if post.comments_count > 0 %>
-    <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
+    <div><%= link_to " view all comments ({post.comments_count})", post_path(post.id) %></div>
     <% end %>
   </p>
     
