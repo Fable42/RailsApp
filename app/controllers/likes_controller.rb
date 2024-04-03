@@ -1,11 +1,24 @@
 class LikesController < ApplicationController  
   def create
-    @like = current_user.likes.create(like_params)
+    @like = current_user.likes.new(like_params)
+
+    if @like.save
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes", partial: "likes/post-likes", locals: { post: @like.likeable }) }
+      end
+    else
+      flash.now[:alert] = 'Something went wrong'
+      render :new, status: 422
+    end
   end
 
   def destroy
     @like = current_user.likes.find(params[:id])
     @like.destroy
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes", partial: "likes/post-likes", locals: { post: @like.likeable }) }
+    end
   end
 
   private

@@ -5,15 +5,12 @@ Rails.application.routes.draw do
   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
   post '/users/:id/pin', to: "users#pin", as: "pin_user"
   post '/users/:id/unpin', to: "users#unpin", as: "unpin_user"
+  post '/posts/:id/view', to: "views#view"
 
   resources :profiles, only: [:show]
 
   resources :posts do
     resources :comments, only: %i[ create destroy ]
-    
-    member do
-      post 'view'
-    end
   end
 
   resources :likes, only: %i[ create destroy ]

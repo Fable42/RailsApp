@@ -10,20 +10,19 @@ export default class extends Controller {
           fetch('/posts/' + this.element.id + '/view', { 
             method: 'POST',
             headers: {
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
             }
           })
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
-            return response.json();
+            return response.text();
           })
-          .then(data => console.log(this.element.id));
-
-          console.log(this.element.id)
-          
-          observer.unobserve(entry.target);
+          .then(data => {
+            console.log(data);
+            document.getElementById('post-views-' + entry.target.id).innerText = Number(data);
+          });
         }
       });
     });

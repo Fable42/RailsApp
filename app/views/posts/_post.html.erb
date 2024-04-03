@@ -18,9 +18,9 @@
 
   <%= render partial: "likes/post-likes", locals: { post: post } %>
 
-  <div> Views: <%= post.views_count %></div>
+  Views: <div id="post-views-<%= post.id %>"><%= post.views_count %></div>
 
-  <div> LIKE RATE: <%= post.like_rate %></div>
+  like RATE: <%= post.like_rate %>
 
   <p class=""> 
     <div> <%= post.user.name %> : <%= post.body %> </div>
