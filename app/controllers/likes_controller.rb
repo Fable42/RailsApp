@@ -6,7 +6,7 @@ class LikesController < ApplicationController
 
     if @like.save
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes"), partial: "likes/post-likes", locals: { post: @like.likeable } }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes-#{@like.likeable_id}", partial: "likes/post-likes", locals: { post: @like.likeable }) }
       end
     else
       flash.now[:alert] = 'Something went wrong'
@@ -15,11 +15,11 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = current_user.likes.find_by(id: params[:id])
+    @like = current_user.likes.find(params[:id])
     @like.destroy
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes"), partial: "likes/post-likes", locals: { post: @like.likeable } }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes-#{@like.likeable_id}", partial: "likes/post-likes", locals: { post: @like.likeable }) }
     end
   end
 
