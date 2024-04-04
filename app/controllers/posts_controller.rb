@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
   before_action :correct_user, only: %i[ edit update destroy ]
-  before_action :set_post, only: %i[ show edit update destroy view ]
+  before_action :set_post, only: %i[ show edit update destroy ]
 
   def new
-    @post = current_user.posts.build
+    @post = current_user.posts.new
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.new(post_params)
 
     if @post.save
       redirect_to root_path, notice: 'New post created'
