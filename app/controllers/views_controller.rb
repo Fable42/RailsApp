@@ -13,7 +13,7 @@ class ViewsController < ApplicationController
       view.save
     end
 
-    render plain: @post.views_count.to_s
+    render json: { views_count: @post.views_count.to_s, like_rate: @post.like_rate.to_s }
   end
 
   private 

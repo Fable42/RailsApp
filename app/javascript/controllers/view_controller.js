@@ -12,19 +12,18 @@ export default class extends Controller {
               method: 'POST',
               headers: {
                 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
-                'Accept': 'text/vnd.turbo-stream.html',
               }
             })
             .then(response => {
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
-              return response.text();
+              return response.json();
             })
             .then(data => {
-              console.log(data); // для ручной проверки
               if (data) {
-                document.getElementById('post-views-' + entry.target.id).innerText = data;
+                document.getElementById('post-views-' + entry.target.id).innerText = data.views_count;
+                document.getElementById('post-likerate-' + entry.target.id).innerText = data.like_rate;
               }
             });
           }, 2500); // Запускаем таймер на 3 секунды

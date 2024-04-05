@@ -1,12 +1,21 @@
 class LikesController < ApplicationController  
-  after_action :calc_like_rate
-
   def create
     @like = current_user.likes.new(like_params)
 
     if @like.save
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes-#{@like.likeable_id}", partial: "likes/post-likes", locals: { post: @like.likeable }) }
+        format.turbo_stream do
+          streams = []
+          locals_hash = { @like.likeable_type.downcase.to_sym => @like.likeable }
+          streams << turbo_stream.replace("#{@like.likeable_type.downcase}-likes-#{@like.likeable_id}", partial: "likes/#{@like.likeable_type.downcase}-likes", locals: locals_hash )
+          
+          if @like.likeable_type == 'Post'
+            calc_like_rate
+            streams << turbo_stream.replace("post-likerate-#{@like.likeable_id}", partial: "likerates/post-likerate", locals: locals_hash )
+          end
+        
+          render turbo_stream: streams
+        end
       end
     else
       flash.now[:alert] = 'Something went wrong'
@@ -19,7 +28,18 @@ class LikesController < ApplicationController
     @like.destroy
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("post-likes-#{@like.likeable_id}", partial: "likes/post-likes", locals: { post: @like.likeable }) }
+      format.turbo_stream do
+        streams = []
+        locals_hash = { @like.likeable_type.downcase.to_sym => @like.likeable }
+        streams << turbo_stream.replace("#{@like.likeable_type.downcase}-likes-#{@like.likeable_id}", partial: "likes/#{@like.likeable_type.downcase}-likes", locals: locals_hash )
+        
+        if @like.likeable_type == 'Post'
+          calc_like_rate
+          streams << turbo_stream.replace("post-likerate-#{@like.likeable_id}", partial: "likerates/post-likerate", locals: locals_hash )
+        end
+      
+        render turbo_stream: streams
+      end
     end
   end
 

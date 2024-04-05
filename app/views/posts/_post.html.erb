@@ -20,7 +20,7 @@
 
   Views: <div id="post-views-<%= post.id %>"><%= post.views_count %></div>
 
-  like RATE: <%= post.like_rate %>
+  like RATE: <%= render partial: "likerates/post-likerate", locals: { post: post } %>
 
   <p class=""> 
     <div> <%= post.user.name %> : <%= post.body %> </div>
@@ -32,7 +32,7 @@
 
   <p>
     <% if post.comments_count > 0 %>
-    <div><%= link_to " view all comments ({post.comments_count})", post_path(post.id) %></div>
+      <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
     <% end %>
   </p>
     
