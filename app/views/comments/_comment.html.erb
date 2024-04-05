@@ -1,29 +1,36 @@
-<p>
-  <%= comment.body %>
-</p>
+<div id="comment-<%= comment.id %>">
+ <p>
+    <%= comment.body %>
+  </p>
 
-<div><%= comment.user.name %></div>
+  <div><%= comment.user.name %></div>
 
-<% if comment.parent_id %>
-  <div> replyed to <%= comment.parent.user.name %>'s: <%= replyed_to(comment.parent) %> </div>
-<% end %>
+  <% if comment.parent_id %>
+    <div> replyed to <%= comment.parent.user.name %>'s: <%= replyed_to(comment.parent) %> </div>
+  <% end %>
 
-<%= image_tag(comment.user.profile_image, style: "height: 50px; width: 50px;") %>
+  <%= image_tag(comment.user.profile_image, style: "height: 50px; width: 50px;") %>
 
-<div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
+  <div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
 
-<% if current_user.id == comment.user_id %> 
+  <% if current_user.id == comment.user_id %> 
+    <div>
+      <%= button_to 'Delete comment', post_comment_path( comment.post , comment), method: :delete, data: {turbo_method: :delete} %>
+    </div>
+  <% end %>
+
+  <%= render partial: "likes/comment-likes", locals: { comment: comment } %>
+
+  <%= link_to "reply", "#", data: { controller: "comments", action: "click->comments#reply", comment_id: comment.id,user_name: comment.user.name } %>
+
+  <hr / class="mb-ssm">
+
   <div>
-    <%= button_to 'Delete comment', post_comment_path(@post, comment), method: :delete %>
+    <%= render comment.comments.order(id: :desc) %>
   </div>
-<% end %>
-
-<%= render partial: "likes/comment-likes", locals: { comment: comment } %>
-
-<%= link_to "reply", "#", data: { controller: "comments", action: "click->comments#reply", comment_id: comment.id,user_name: comment.user.name } %>
-
-<hr / class="mb-ssm">
-
-<div>
-  <%= render comment.comments.order(id: :desc) %>
 </div>
+
+
+
+
+

@@ -16,26 +16,11 @@
     <%= image_tag img, width: "300px" %>
   <% end %>
 
-  <%= post.likes_count %> Likes
+  <%= render partial: "likes/post-likes", locals: { post: post } %>
 
-  <% if post.likes_count > 0 %>
-    <div> liked by:
-      <% liked_by(post, current_user).each do |image| %>
-        <%= image_tag image, style:'width: 30px' %>
-      <% end %>    
-    </div>
-  <% end %>
+  Views: <div id="post-views-<%= post.id %>"><%= post.views_count %></div>
 
-  <% like = current_user.likes.find_by(likeable: post) %>
-  <% if like.nil? %>
-    <%= button_to "Like", likes_path, params: {like: {likeable_id: post.id, likeable_type: Post}}, method: :post %>
-  <% else %>
-    <%= button_to "Unike", like_path(like[:id]), method: :delete %>
-  <% end %>
-
-  <div> Views: <%= post.views_count %></div>
-
-  <div> LIKE RATE: <%= post.like_rate %></div>
+  like RATE: <%= render partial: "likerates/post-likerate", locals: { post: post } %>
 
   <p class=""> 
     <div> <%= post.user.name %> : <%= post.body %> </div>
@@ -47,7 +32,7 @@
 
   <p>
     <% if post.comments_count > 0 %>
-    <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
+      <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
     <% end %>
   </p>
     

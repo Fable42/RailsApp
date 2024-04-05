@@ -22,9 +22,16 @@
   <% end %>
 
   <%= render partial: "likes/post-likes", locals: { post: @post } %>
+
+  Views: <div id="post-views-<%= @post.id %>"><%= @post.views_count %></div>
+
+  like RATE: <%= render partial: "likerates/post-likerate", locals: { post: @post } %>
+
+  <div data-controller="view" id="<%= @post.id %>"></div>
+
   <hr />
 
-  <p class="mb-sm"> Comments: </p>
+  <p class="mb-sm" id="comments"> Comments: </p>
 
   <%= render @post.comments.where(parent_id: nil).order(id: :desc) %>
 
