@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    if action_name == 'update' && params[:post][:images].first.empty?
+    if action_name == 'update' && params[:post][:images].empty?
       params[:post].delete(:images)
     end
     
