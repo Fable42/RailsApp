@@ -1,12 +1,12 @@
-class UsersController < ApplicationController
-  before_action :set_user, only: %i[ follow unfollow pin unpin ]
+class FollowsController < ApplicationController
+  before_action :set_user
 
-  def follow
+  def create
     Follow.create(follower: current_user, followee: @user)
     redirect_back(fallback_location: profile_path(@user))
   end
   
-  def unfollow
+  def destroy
     current_user.followed_users.find_by(followee_id: @user.id).destroy
     redirect_back(fallback_location: profile_path(@user))
   end

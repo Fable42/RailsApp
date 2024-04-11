@@ -1,21 +1,24 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
 
-  post '/users/:id/follow', to: "users#follow", as: "follow_user"
-  post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
-  post '/users/:id/pin', to: "users#pin", as: "pin_user"
-  post '/users/:id/unpin', to: "users#unpin", as: "unpin_user"
+  resources :users do
+    member do
+      post 'follow', to: "follows#create", as: "follow"
+      post 'unfollow', to: "follows#destroy", as: "unfollow"
+      post 'pin', to: "follows#pin", as: "pin"
+      post 'unpin', to: "follows#unpin", as: "unpin"
+    end
+  end
+
   post '/posts/:id/view', to: "views#view"
 
-  resources :profiles, only: [:show]
+  resources :profiles, only: %i[ show ]
 
   resources :posts do
     resources :comments, only: %i[ create destroy ]
   end
 
   resources :likes, only: %i[ create destroy ]
-
-  resources :follows, only: %i[ create destroy ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
