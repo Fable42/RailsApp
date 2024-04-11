@@ -29,6 +29,15 @@ RSpec.describe "Likes", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context "when liking a post twice" do
+      it "does not create a second like" do
+        like = create(:like, user: user, likeable: post_subject)
+        expect {
+          post likes_path, params: { like: { likeable_id: post_subject.id, likeable_type: 'Post' } }, as: :turbo_stream
+        }.to_not change(Like, :count)
+      end
+    end
   end  
 
   describe "DELETE /destroy" do
