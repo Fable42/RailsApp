@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     name { FFaker::Name.unique.name  }
     email { FFaker::Internet.unique.safe_email }
-    tag { 'Tag1' }
+    tag { FFaker::Name.unique.first_name }
     password { 'passw0rd' }
     password_confirmation { 'passw0rd' }
 

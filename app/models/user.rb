@@ -20,7 +20,7 @@ class User < ApplicationRecord
   validates :tag,
     presence: true,
     uniqueness: true,
-    length: { in: 3..20 },
+    #length: { in: 3..20 },
     format: { without: /\s/ } #нельзя использовать пробел
 
   validates :name,
