@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
   let(:post_subject) { create(:post, user: user) }
 
   before { sign_in user }
@@ -76,19 +77,45 @@ RSpec.describe "Posts", type: :request do
         expect(post_subject.body).not_to be_nil
       end
     end
+
+    context 'when the user is not the owner' do
+      before { sign_in other_user }
+
+      it 'does not update the post' do
+        patch post_path(post_subject),
+          params: { post: attributes_for(:post, body: 'New Body') },
+          headers: { "HTTP_REFERER": root_path }
+
+        post_subject.reload
+        expect(post_subject.body).not_to eq('New Body')
+      end
+    end
   end
 
   describe 'DELETE /destroy' do
-    it 'deletes the post' do
-      delete post_path(post_subject)
-      expect {
-        post_subject.reload
-      }.to raise_error ActiveRecord::RecordNotFound
-    end
+    context 'when the user is the owner' do
+      it 'deletes the post' do
+        delete post_path(post_subject)
+        expect {
+          post_subject.reload
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
 
-    it 'redirects to root_path' do
-      delete post_path(post_subject)
-      expect(response).to redirect_to root_path
+      it 'redirects to root_path' do
+        delete post_path(post_subject)
+        expect(response).to redirect_to root_path
+      end
+    end 
+
+    context 'when the user is not the owner' do
+      before { sign_in other_user }
+
+      it "does not destroy the post" do
+        delete post_path(post_subject), headers: { "HTTP_REFERER": root_path }
+        expect {
+          post_subject.reload
+        }.not_to change(Post, :count)
+      end
     end
   end
 end

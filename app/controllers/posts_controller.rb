@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-    @posts = current_user.posts.find_by(id: params[:id])
-    redirect_to root_path, alert: 'No permittion' if @posts.nil?
+    @post = current_user.posts.find_by(id: params[:id])
+    redirect_to request.referer, alert: 'No permittion' if @post.nil?
   end
 end
