@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :like do
-    user
-    association :likeable, factory: :post
+    association :user
+    association :likeable
   end
 end
