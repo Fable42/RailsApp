@@ -10,12 +10,11 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/posts/:id/view', to: "views#view"
-
   resources :profiles, only: %i[ show ]
 
   resources :posts do
     resources :comments, only: %i[ create destroy ]
+    resources :views, only: %i[ create ]
   end
 
   resources :likes, only: %i[ create destroy ]
@@ -27,5 +26,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
+      #member do 
+      #post 'view', to: "views#create"
+    #end
   root to: "main_pages#index"
 end
