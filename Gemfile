@@ -69,6 +69,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 6.0'
 end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
