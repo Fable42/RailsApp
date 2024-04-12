@@ -1,7 +1,7 @@
 class ViewsController < ApplicationController
   before_action :set_post
 
-  def view
+  def create
     last_view = @post.views.where(user: current_user).order(viewed_at: :desc).first
     view = @post.views.new(user: current_user, viewed_at: Time.current)
 
@@ -19,6 +19,6 @@ class ViewsController < ApplicationController
   private 
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:post_id])
   end
 end
