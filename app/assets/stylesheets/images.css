@@ -1,0 +1,46 @@
+.rounded {
+  border-radius: 50%;
+}
+
+.profile-mini{
+  height: 48px;
+  width: 48px;
+}
+
+.profile-head{
+  height: 50px;
+  width: 50px;
+}
+
+.profile-comment{
+  height: 40px;
+  width: 40px;
+}
+
+.profile{
+  height: 200px;
+  width: 200px;
+}
+
+.profile-post{
+  height: 200px;
+  width: 200px;
+}
+
+.post-img{
+  max-width: 100%;
+}
+
+.hide-on-hover {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.h-parent:hover .h-child {
+  opacity: 1;
+}
+
+.h-child {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
