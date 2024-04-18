@@ -1,17 +1,66 @@
-<%= user_profile_image( @user, css_class: '') %>
+<div class="profile-container mh-a pt-30">
+  <div class="mh-105 flex cl-w tittle-sm">
+    <div class="mr-40">
+      <%= user_profile_image( @user, css_class: 'rounded profile') %>
+    </div>
 
-<%= @user.name %>
+    <div>
+      <div class="flex mb-15 profile-top-container">
+        <div class="tittle-profile">
+          <%= @user.name %>
+        </div>
 
-<%= @user.tag %>
+        <div class="flex pl-25">
+          <%= user_action_link(current_user, @user, css_class: 'cl-w button-follow bg-b br-10 text-m') %>
+        </div>
+      </div>
 
-<p> Followers: <%= @user.followers.size %> </p>
+      <div class="mb-15 flex">
+        <div class="flex">
+          <div class="cl-w"><%= @posts.average(:like_rate).to_s %></div> 
+          <div>&nbsp;</div>
+          <div class="cl-lg">avg likerate</div>
+        </div>
+          
+        <div class="ml-20 flex">
+          <div class="cl-w"><%= @posts.order(created_at: :desc).limit(10).average(:like_rate) %></div>
+          <div class="cl-lg">&nbsp;for last 10 posts</div>
+        </div>      
+      </div>
 
-<p> Followings: <%= @user.followees.size %> </p>
+      <div class="mb-15 flex">
+        <div class="flex">
+          <div class="cl-w"> Followers&nbsp; </div>
+          <div class="cl-lg"><%= @user.followers.size %> </div>
+        </div>
+        
+        <div class="ml-20">
+          <div class="flex">
+            <div class="cl-w"> Followings&nbsp; </div>
+            <div class="cl-lg"><%= @user.followees.size %> </div>
+          </div>
+        </div>
+      </div>
 
-<p> Posts: <%= @user.posts.size %> </p>
+      <p class="mb-15">
+        <%= @user.tag %>
+      </p>
+    </div>
+  </div>
 
-<%= user_action_link(current_user, @user, css_class: '') %>
+  <hr class="cl-lg">
 
-<%= display_posts(@posts, css_class: '' ) %>
+  <div class="center-h mb-30 mt-10 tittle-sm">
+    <div class="cl-w">
+      Posts&nbsp;
+    </div>
 
-<p><%= link_to "Back", root_path %></p>
+    <div class="cl-g">
+      <%= @user.posts.size %> 
+    </div>
+  </div>
+
+  <div>
+    <%= display_posts(@posts, css_class: 'profile-post' ) %>
+  </div>
+</div>

@@ -9,7 +9,7 @@
   <%= form.number_field :user_id, value: current_user.id, type: :hidden %>
 
   <div>
-    <%= form.label :images %>
+    <%= form.label :images, "Upload New Images" %>
     <%= form.file_field :images, multiple: true %>
   </div>
 

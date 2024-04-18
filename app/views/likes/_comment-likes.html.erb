@@ -1,10 +1,16 @@
-<div id="comment-likes-<%= comment.id %>">
-  <%= comment.likes_count %> Likes
-
+<div id="comment-likes-<%= comment.id %>" class="flex">
   <% like = current_user.likes.find_by(likeable: comment) %>
   <% if like.nil? %>
-    <%= button_to "Like", likes_path, params: {like: {likeable_id: comment.id, likeable_type: Comment}}, method: :post %>
+    <%= button_to likes_path, params: {like: {likeable_id: comment.id, likeable_type: Comment}}, method: :post do %>
+      <%= image_tag("comment-like") %>
+    <% end %>
   <% else %>
-    <%= button_to "Unike", like_path(like[:id]), method: :delete %>
+    <%= button_to like_path(like[:id]), method: :delete do %>
+      <%= image_tag("comment-unlike") %>
+    <% end %>
   <% end %>
+  
+  <div class="cl-w">
+    <%= comment.likes_count %>
+  </div>
 </div>

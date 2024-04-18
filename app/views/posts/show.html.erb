@@ -1,43 +1,71 @@
-<div style="border: 1px solid black; max-width: 300px;">
-  <%= image_tag(@post.user.profile_image, style: "height: 50px; width: 50px;") %>
+<div class="flex cl-g show-post-container no-scroll">
+  <div class="show-post-img-container mv-a img-c">
+    <% @post.images.each do |img|%>
+      <%= image_tag(img, class: "post-img") %>
+    <% end %>
+  </div>
 
-  <p class=""> user: <%= @post.user.name %> </p>
+  <hr style="border-color: #777;">
 
-  <% if @post.updated_at - @post.created_at > 1%> 
-    <div> Edited <%= time_ago_in_words(@post.updated_at) %> ago </div>
-  <% else %>
-    <div> Posted <%= time_ago_in_words(@post.created_at) %> ago </div>
-  <% end %>
+  <div class="show-post-sub-container">
+    <div>
+      <div class="flex mv-15">
+        <%= image_tag(@post.user.profile_image, class: 'rounded profile-mini mr-10 cl-w ml-25') %>
+        <%= link_to @post.user.name, profile_path(@post.user), class: 'mv-a text-m cl-w' %>
 
-  <% @post.images.each do |img|%>
-    <%= image_tag img, width: "300px" %>
-  <% end %>
+        <div class="ml-a"></div>
 
-  <p class=""> 
-    <div> <%= @post.user.name %> : <%= @post.body %> </div>
-  </p>
+        <div class="mv-a text-sm pr-10">
+          <div class="cl-g"> posted <%= time_ago_in_words(@post.created_at) %> ago. </div>
+        </div>
+      </div>
 
-  <% if current_user.id == @post.user_id%> 
-    <%= link_to 'Edit post', edit_post_path(@post.id) %>
-  <% end %>
+      <hr style="border-color: #777;">
+    </div>
 
-  <%= render partial: "likes/post-likes", locals: { post: @post } %>
+    <div class="mt-25 show-post-comment-container ml-25 scroll" >
+      <div class=" scroll">
+        <div class="flex">
+          <%= image_tag(@post.user.profile_image, class: 'rounded profile-comment mr-10 cl-w') %>
+          <div class="flex mv-a text-m">
+            <div class="cl-w"><%= @post.user.name %></div>
+            <div class="cl-lg">:&nbsp;<%= @post.body %></div>
+          </div>
+        </div>
+        <div><%= render @post.comments.where(parent_id: nil).order(id: :desc) %></div>
+      </div>
+    </div>
 
-  Views: <div id="post-views-<%= @post.id %>"><%= @post.views_count %></div>
+    <hr style="border-color: #777;">
 
-  like RATE: <%= render partial: "likerates/post-likerate", locals: { post: @post } %>
+    <div class= "pl-10 ml-1 bg-b" style="position:absolute; z-index:1; border-left: 1px solid #777;">
+      <div class="flex text-m cl-g mb-5 mv-15">
+        <%= render partial: "likes/post-likes", locals: { post: @post } %>
 
-  <div data-controller="view" id="<%= @post.id %>"></div>
+        <div class="ml-a"></div>
 
-  <hr />
+        <div class="mv-a">
+          <%= render partial: "likerates/post-likerate", locals: { post: @post } %>
+        </div>
 
-  <p class="mb-sm" id="comments"> Comments: </p>
+        <div class="mv-a pr-10 flex">
+          <div>
+            % like rate |
+          </div>
 
-  <%= render @post.comments.where(parent_id: nil).order(id: :desc) %>
+          <div id="post-views-<%= @post.id %>" class="pr-5 pl-5">
+            <%= @post.views_count %>
+          </div>
 
-  <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
-    
-  <p class="mb-m"></p>
+          <div>
+            views
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "Back", root_path %>

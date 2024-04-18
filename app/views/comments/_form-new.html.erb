@@ -1,12 +1,22 @@
 <%= form_with model: [ post, Comment.new], id: 'comment_form' do |form| %>
 
-  <div id="reply_to" class="d-none">replying to:
-    <div id="user_name"></div>
-    <%= link_to "cancel", "#", data: { controller: "comments", action: "click->comments#cancel" } %>
+  <div class="cl-w ml-10">
+    <div id="reply_to" class="d-none flex">replying to:
+      <div id="user_name" class="cl-lg"></div>
+
+      <%= link_to "#", data: { controller: "comments", action: "click->comments#cancel" } do %>
+        <div class="ml-10"><%= image_tag("reply-cancel", alt: "Cancel") %> </div>
+      <% end %>
+    </div>
   </div>
 
-  <p><%= form.text_area :body, rows: 1, placeholder: 'Comment_text' %></p>
-  <%= form.hidden_field :parent_id, value: '', id: 'parent_id_field' %>
-  
-  <p><%= form.submit 'Add comment', id: 'submit_button' %></p>
+
+  <div class="flex bg-b">
+    <div><%= form.text_area :body, rows: 1, placeholder: 'add comment...', class: 'input_comment text-m ml-5' %></div>
+    <%= form.hidden_field :parent_id, value: '', id: 'parent_id_field' %>
+
+    <div class="ml-a"></div>
+    
+    <div class="mv-a"><%= form.submit 'post', id: 'submit_button', class: 'button-sumbit pr-15 text-m' %></div>
+  </div>
 <% end %>
