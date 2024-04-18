@@ -13,13 +13,13 @@ module ProfileHelper
 
   def display_posts(posts, css_class: '')
     posts.map do |post|
-      link_to (image_tag(post.images.first, style: "height: 50px; width: 50px;", class: css_class)), post_path(post)
+      link_to (image_tag(post.images.first, class: css_class)), post_path(post)
     end.join.html_safe
   end
 
   def user_profile_image(user, css_class: '')
     if user.profile_image.attached?
-      image_tag(user.profile_image, class: css_class, style: "height: 100px; width: 100px;")
+      image_tag(user.profile_image, class: css_class)
     end
   end
 end

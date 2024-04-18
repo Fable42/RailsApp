@@ -1,4 +1,4 @@
-<div class = "container_sign center-v-fixed">
+<div class = "mg-a center-fixed">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="tittle-lg center-h">
       <div class="cl-w">Tag</div>
@@ -6,22 +6,32 @@
     </div>
 
     <div>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input_sign tittle-sm mt-lg', placeholder: 'Email' %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input_sign tittle-sm mt-25', placeholder: 'Email' %>
     </div>
 
     <div>
-      <%= f.password_field :password, autocomplete: "current-password", class: 'input_sign tittle-sm mt-sm', placeholder: 'Password' %>
+      <%= f.password_field :password, autocomplete: "current-password", class: 'input_sign tittle-sm mt-20', placeholder: 'Password' %>
     </div>
 
     <div>
-      <%= f.submit "Sign in", class: 'button_sign mt-m tittle-m' %>
+      <%= f.submit "Sign In", class: 'button_sign mt-20 tittle-m br-10' %>
     </div>
 
-    <p class="center-h mt-ssm mb-ssm">
+    <p class="center-h mt-10 mb-20">
       <span class="line-125 line-l"></span><span class="mv-a text-m cl-g">or</span><span class="line-125 line-r"></span>
     </p>
 
     <%= render "devise/shared/links" %>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="cl-w text-m center-h">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
   <% end %>
 </div>
+
+
 

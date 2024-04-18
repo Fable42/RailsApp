@@ -6,8 +6,48 @@
   border: 0px;
 }
 
+.button_def {
+  width: 220px;
+  height: 45px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+
 .button-flash{
   border: none;
   outline: none;
   background-color: transparent;
 }
+
+button{
+  background-color: black;
+  border: none;
+  display: flex;
+}
+
+.br-10{
+  border-radius: 10px;
+}
+
+.button-sumbit{
+  background: none;
+  color: white;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.button-follow{
+  width: 185px;
+  height: 45px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

@@ -1,45 +1,69 @@
-<div>Hello <%= link_to current_user.name, profile_path(current_user.id) %>!
+<div class="flex mt-10">
+    <div class="filter-container mt-20 center-h ml-a">
+      <%= button_to new_post_path, method: :get, class: 'cl-w flex' do %>
+        <%= image_tag 'post', class: 'mr-10' %>
+        <div class="mv-a tittle-sm"> Create new post</div>
+      <% end %>
+    </div>
 
-  <% if current_user.profile_image.attached? %>
-    <%= image_tag(current_user.profile_image, style: "height: 50px; width: 50px;") %>
-  <% end %>
+  <div id="posts" class="posts-container ml-40 mr-40 mt-20"
+    data-controller="pagination"
+    data-pagination-target="posts"
+    data-pagination-url-value="<%= posts_url %>"
+    data-pagination-page-value="<%= 2 %>">
+    <%= render @posts, locals: { user: @user, comment: @comment } %>
+  </div>
 
+  <div class="subs-container mr-a mt-30"> 
+    <div class="flex mb-20">  
+      <div class="cl-lg tittle-sm flex">
+        Followings 
+
+        <div class="text-m cl-g mv-a">(<%= current_user.followed_users.count %>)</div>
+      </div>
+    </div>
+
+    <div class="flex">
+      <% sorted_followees.each do |followee| %>
+        <li class="flex h-parent mb-10">
+          <div class="mr-10">
+            <%= image_tag(followee.profile_image, class: 'rounded profile-mini') %>
+          </div>
+
+          <div class="cl-lg ">
+            <div>
+              <%= link_to followee.name, profile_path(followee), class: 'text-m cl-w' %> 
+            </div>
+
+            <div> 
+              <%  if followee.posts.any? %>
+                <div class="text-sm"> last publication: 
+                  <%= time_ago_in_words(followee.posts.maximum(:created_at)) %> ago
+                </div>
+              <% else %>
+                <div class="text-sm"> No publications yet </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="ml-15"></div>
+          
+          <div class="mt-10">
+            <% followed = current_user.followed_users.find_by(followee_id: followee.id) %>
+            <% if followed.pinned %>
+              <%= button_to unpin_user_path(followee), method: :post do %>
+                <%= image_tag('pin') %>
+              <% end %>
+            <% else %>
+              <div class="h-child">
+                <%= button_to pin_user_path(followee), method: :post do %>
+                  <%= image_tag('unpin') %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= current_user.tag%>
-
-<%= button_to 'sign out', destroy_user_session_path, method: :delete %>
-
-<div> Following: </div>
-<% sorted_followees.each do |followee| %>
-  <%= image_tag(followee.profile_image, style: "height: 30px; width: 30px;") %>
-  <%= link_to followee.name, profile_path(followee) %>
-
-  <%  if followee.posts.any? %>
-    <div><%= time_ago_in_words(followee.posts.maximum(:created_at)) %> ago</div>
-  <% else %>
-    <p> No publications yet </p>
-  <% end %>
-
-  <% followed = current_user.followed_users.find_by(followee_id: followee.id) %>
-  <% if followed.pinned %>
-    <%= button_to 'Unpin', unpin_user_path(followee), method: :post %>
-  <% else %>
-    <%= button_to 'Pin', pin_user_path(followee), method: :post %>
-  <% end %>
-<% end %>
-
-<div class="mb-sm mt-sm">
-  <%= button_to 'Add post', new_post_path, method: :get %>
-</div>
-
-<p class="mb-sm mt-lg"> All posts: </p>
-
-<div id="posts" 
-  data-controller="pagination"
-  data-pagination-target="posts"
-  data-pagination-url-value="<%= posts_url %>"
-  data-pagination-page-value="<%= 2 %>">
-  <%= render @posts, locals: { user: @user, comment: @comment } %>
-</div>
-

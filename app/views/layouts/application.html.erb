@@ -16,6 +16,12 @@
 
   <body>
     <%= render partial: "layouts/flash" %>
+
+    <header>
+      <% unless devise_controller? && (["new", "create"].include?(action_name) || ["new", "create", "edit", "update"].include?(action_name)) %>
+        <%= render partial: "layouts/header" %>
+      <% end %>
+    </header>
     
     <%= yield %>
   </body>

@@ -1,32 +1,48 @@
-<div id="comment-<%= comment.id %>">
- <p>
-    <%= comment.body %>
-  </p>
-
-  <div><%= comment.user.name %></div>
+<div id="comment-<%= comment.id %>" class="mt-25" data-controller="replies-hide">
 
   <% if comment.parent_id %>
-    <div> replyed to <%= comment.parent.user.name %>'s: <%= replyed_to(comment.parent) %> </div>
+    <p class="flex mr-a ml-50"> replyed to <%= comment.parent.user.name %>'s: <%= replyed_to(comment.parent) %> </p>
   <% end %>
 
-  <%= image_tag(comment.user.profile_image, style: "height: 50px; width: 50px;") %>
+  <div class="flex">
+    <%= image_tag(comment.user.profile_image, class: 'rounded profile-comment mr-10 cl-w') %>
 
-  <div> Posted <%= time_ago_in_words(comment.created_at) %> ago </div>
-
-  <% if current_user.id == comment.user_id %> 
-    <div>
-      <%= button_to 'Delete comment', post_comment_path( comment.post , comment), method: :delete, data: {turbo_method: :delete} %>
+    <div class="flex mv-a text-m h-parent">
+      <%= link_to comment.user.name, profile_path(comment.user), class: 'mv-a text-m cl-w' %>
+      <div class="cl-lg">:&nbsp;<%= comment.body %></div>
+      <div> (<%= time_ago_in_words(comment.created_at) %> ago) </div>
+      <div class="flex ml-5">
+        <% if current_user.id == comment.user_id %> 
+        <div class="mv-a h-child">
+          <%= button_to post_comment_path(comment.post, comment), method: :delete, data: {turbo_method: :delete} do %>
+            <%= image_tag("comment-delete", alt: "Delete comment") %>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
+  </div>
 
-  <%= render partial: "likes/comment-likes", locals: { comment: comment } %>
+  <div class="flex ml-50">
+    <div class="mv-a"><%= render partial: "likes/comment-likes", locals: { comment: comment } %></div>
 
-  <%= link_to "reply", "#", data: { controller: "comments", action: "click->comments#reply", comment_id: comment.id,user_name: comment.user.name } %>
+    <div class="pb-3 ml-10">
+      <%= link_to "reply", "#", data: { controller: "comments", action: "click->comments#reply", comment_id: comment.id, user_name: comment.user.name }, class: "cl-w text-m mv-a" %>
+    </div>
+  </div>
 
-  <hr / class="mb-ssm">
-
-  <div>
-    <%= render comment.replies.order(id: :desc) %>
+  <div class="flex ml-50">
+    <% if comment.replies.any? %>
+      <a href="#" data-action="click->replies-hide#toggle" data-replies-hide-target="toggleLink">Show replies</a>
+      <div> (<%= comment.replies.count %>)</div>
+    <% end %>
+  </div>
+  <div id="comments"></div>
+            
+  <div class="comment d-none" data-replies-hide-target="replies">
+    <% comment.replies.each do |reply| %>
+      <%= render partial: "comments/comment", locals: { comment: reply } %>
+    <% end %>
   </div>
 </div>
 

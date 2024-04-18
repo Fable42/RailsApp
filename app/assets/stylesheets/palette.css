@@ -6,14 +6,30 @@
   color: black;
 }
 
+.cl-r{
+  color: red;
+}
+
 .cl-g{
   color:#777;
+}
+
+.cl-lg{
+  color: #AAAAAA;
 }
 
 .bg-w{
   background-color: white;
 }
 
+.bg-b{
+  background-color: black;
+}
+
 .bg-error{
   background-color: #E89E9E;
+}
+
+.br-r{
+  border: 1px solid red;
 }

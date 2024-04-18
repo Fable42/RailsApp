@@ -1,43 +1,73 @@
-<div style="border: 1px solid black; max-width: 300px;">
+<div max-width: 500px;">
 
-  <%= post.id %>
+  <div class="flex mb-5">
+    <%= image_tag(post.user.profile_image, class: 'rounded profile-mini mr-10 cl-w') %>
+    <%= link_to post.user.name, profile_path(post.user), class: 'mv-a text-m cl-w' %>
 
-  <%= image_tag(post.user.profile_image, style: "height: 50px; width: 50px;") %>
+    <div class="ml-a"></div>
 
-  <p class=""> user: <%= link_to post.user.name, profile_path(post.user) %> </p>
-
-  <% if post.updated_at - post.created_at > 1%> 
-    <div> Edited <%= time_ago_in_words(post.updated_at) %> ago </div>
-  <% else %>
-    <div> Posted <%= time_ago_in_words(post.created_at) %> ago </div>
-  <% end %>
-
-  <% post.images.each do |img|%>
-    <%= image_tag img, width: "300px" %>
-  <% end %>
-
-  <%= render partial: "likes/post-likes", locals: { post: post } %>
-
-  Views: <div id="post-views-<%= post.id %>"><%= post.views_count %></div>
-
-  like RATE: <%= render partial: "likerates/post-likerate", locals: { post: post } %>
-
-  <p class=""> 
-    <div> <%= post.user.name %> : <%= post.body %> </div>
-  </p>
-
-  <% if current_user.id == post.user_id%> 
-    <%= link_to 'Edit post', edit_post_path(post.id) %>
-  <% end %>
-
-  <p>
-    <% if post.comments_count > 0 %>
-      <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
+    <div class="mv-a text-sm">
+        <div class="cl-g"> posted <%= time_ago_in_words(post.created_at) %> ago. </div>
+    </div>
+  </div>
+  
+  <div class="mt-10">
+    <% post.images.each do |img|%>
+      <%= image_tag img, width: "500px" %>
     <% end %>
-  </p>
+  </div>    
+
+  <div class="flex text-m cl-g mb-5">
+    <%= render partial: "likes/post-likes", locals: { post: post } %>
+
+    <div class="ml-a"></div>
+
+    <div class="mv-a">
+      <%= render partial: "likerates/post-likerate", locals: { post: post } %>
+    </div>
+
+    <div class="mv-a flex">
+      <div>
+        % like rate |
+      </div>
+
+      <div id="post-views-<%= post.id %>" class="pr-5 pl-5">
+        <%= post.views_count %>
+      </div>
+
+      <div>
+        views
+      </div>
+    </div>
+  </div>
+
+  <div class="flex text-m ml-5 mb-10"> 
+    <div class="cl-w"> <%= post.user.name %> </div>
+    <div class="cl-lg">: <%= post.body %> </div>
+  </div>
+
+  <div class="flex text-m">
+    <div class="ml-5">
+      <% if post.comments_count > 0 %>
+       <div><%= link_to " view all comments (#{post.comments_count})", post_path(post.id) %></div>
+      <% else %>
+        <div class="cl-lg"> there is no commets yet! </div>
+      <% end %>
+    </div>
     
+    <div class="ml-a"></div>
+
+    <div class="pr-10">
+      <% if current_user.id == post.user_id%> 
+        <%= link_to 'edit', edit_post_path(post.id) %>
+      <% end %>
+    </div>
+  </div>
+
   <%= render partial: "comments/form-new", locals: { comment: @comment, post: post } %>
 
   <div data-controller="view" id="<%= post.id %>"></div>
+
+  <hr class="cl-w mb-30 mt-10">
 
 </div>

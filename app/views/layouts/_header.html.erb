@@ -1,0 +1,32 @@
+<div class="flex container mh-a">
+  <div>
+    <%= link_to root_path do %>
+      <div class="flex tittle-lg">
+        <div class="cl-w">Tag</div>
+        <div class="cl-g">IT</div>  
+      </div>
+    <% end %>
+  </div>
+
+  <div class="ml-a"></div>
+
+  <div class="flex mv-a">
+    <div class="mv-a">
+      <% if current_user.profile_image.attached? %>
+        <%= image_tag(current_user.profile_image, class: 'rounded profile-head mr-10') %>
+      <% end %>
+    </div>
+
+    <div class="mv-a">
+      <%= link_to current_user.tag, profile_path(current_user), class: 'cl-w tittle-sm' %>
+    </div>
+
+    <div class="cl-w mv-a">
+      <%= button_to destroy_user_session_path, method: :delete do %>
+        <%= image_tag('sign-out', class: 'ml-20') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<hr style="border-top: 1px solid white;">

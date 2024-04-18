@@ -28,5 +28,5 @@ class Post < ApplicationRecord
 
   def images_presence
     errors.add(:images, 'Must be at least one video or image') if images.blank?
-  end
+  end  
 end

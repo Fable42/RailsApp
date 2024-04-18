@@ -24,10 +24,13 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.update(post_params)
-
-    redirect_to root_path, notice: 'Post edited'
-  end
+    if @post.update(post_params)
+      redirect_to root_path, notice: 'Post edited'
+    else
+      flash.now[:alert] = @post.errors.full_messages.join(', ')
+      render :edit, status: 422
+    end
+  end  
 
   def destroy
     @post.destroy
@@ -43,11 +46,15 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    if action_name == 'update' && params[:post][:images].empty?
-      params[:post].delete(:images)
-    end
-    
     params.require(:post).permit(:body, :user_id, images: [])
+  end  
+
+  def post_paramss
+    if action_name == 'update' && params[:post][:images].first.blank?
+      params.require(:post).permit(:body, :user_id)
+    else
+      params.require(:post).permit(:body, :user_id, images: [])
+    end
   end
 
   def set_post
