@@ -1,24 +1,24 @@
-<div>Edit post <%= @post.id %></div>
+<div class="tittle-sm cl-w mb-20">Edit post</div>
 
 <%= form_with model: @post do |form| %>
 
-  <p>
-    <%= form.text_area :body, rows:5, placeholder: 'Post_text' %>
-  </p>
+  <div class="mb-10">
+    <%= form.text_area :body, rows:1, placeholder: 'description', class: 'input_sign text-m' %>
+  </div>
 
   <%= form.number_field :user_id, value: current_user.id, type: :hidden %>
 
-  <div>
-    <%= form.label :images, "Upload New Images" %>
+  <div class="">
+    <%= form.label :images, "Upload New Images", class: 'cl-lg text-m' %>
     <%= form.file_field :images, multiple: true %>
   </div>
 
-  <p>
-    <%= form.submit 'Edit' %>
-  </p>
+  <div class="actions ml-15 mt-15 mb-20">
+    <%= form.submit 'Edit', class: 'button_def br-10 text-sm' %>
+  </div>
 
 <% end %>
 
-<div>
-  <%= button_to 'Delete post', post_path(@post), method: :delete %>
+<div class="actions ml-15 mt-15">
+  <%= button_to 'Delete post', post_path(@post), method: :delete, class: 'button_def br-r cl-r br-10 text-sm' %>
 </div>

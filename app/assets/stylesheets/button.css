@@ -6,6 +6,18 @@
   border: 0px;
 }
 
+.button_def {
+  width: 220px;
+  height: 45px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+
 .button-flash{
   border: none;
   outline: none;

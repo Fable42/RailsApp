@@ -10,9 +10,8 @@
     </div>
   </div>
 
-
   <div class="flex bg-b">
-    <div><%= form.text_area :body, rows: 1, placeholder: 'add comment...', class: 'input_comment text-m ml-5' %></div>
+    <div class="pr-10"><%= form.text_area :body, rows: 1, placeholder: 'add comment...', class: 'input_comment text-m ml-5' %></div>
     <%= form.hidden_field :parent_id, value: '', id: 'parent_id_field' %>
 
     <div class="ml-a"></div>

@@ -6,6 +6,10 @@
   color: black;
 }
 
+.cl-r{
+  color: red;
+}
+
 .cl-g{
   color:#777;
 }
@@ -24,4 +28,8 @@
 
 .bg-error{
   background-color: #E89E9E;
+}
+
+.br-r{
+  border: 1px solid red;
 }

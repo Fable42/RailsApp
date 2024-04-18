@@ -1,8 +1,5 @@
-.input-comment{
-  outline: none;
-  outline: 0;
-  position: absolute; 
-  z-index: 1;
+.input_comment {
+  width: 430px !important; /* Измените это значение в соответствии с вашими потребностями */
 }
 
 .input_sign {
@@ -29,3 +26,14 @@
   resize: none;
 }
 
+.input-def{
+  width: 200px;
+  border-bottom: 1px solid #777;
+  background-color: black;
+  color: white;
+  padding: 5px 25px;
+}
+
+.input_sign:def {
+  border-bottom: 1px solid white;
+}

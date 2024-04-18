@@ -38,31 +38,30 @@
 
     <hr style="border-color: #777;">
 
-    <div class= "pl-10 ml-1 bg-b" style="position:absolute; z-index:1; border-left: 1px solid #777;">
+    <div class= "pl-10 ml-1 bg-b" style="z-index:1; border-left: 1px solid #777;">
       <div class="flex text-m cl-g mb-5 mv-15">
         <%= render partial: "likes/post-likes", locals: { post: @post } %>
 
-        <div class="ml-a"></div>
-
-        <div class="mv-a">
-          <%= render partial: "likerates/post-likerate", locals: { post: @post } %>
-        </div>
-
-        <div class="mv-a pr-10 flex">
-          <div>
-            % like rate |
+        <div class="ml-a r-0 flex">
+          <div class="mv-a r-0">
+            <%= render partial: "likerates/post-likerate", locals: { post: @post } %>
           </div>
 
-          <div id="post-views-<%= @post.id %>" class="pr-5 pl-5">
-            <%= @post.views_count %>
-          </div>
+          <div class="mv-a pr-10 flex">
+            <div>
+              % like rate |
+            </div>
 
-          <div>
-            views
+            <div id="post-views-<%= @post.id %>" class="pr-5 pl-5">
+              <%= @post.views_count %>
+            </div>
+
+            <div>
+              views
+            </div>
           </div>
         </div>
       </div>
-
       <div>
         <%= render partial: "comments/form-new", locals: { comment: @comment, post: @post } %>
       </div>
