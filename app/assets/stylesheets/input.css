@@ -1,8 +1,31 @@
-.input_sign {
-  background-color: black;
-  border: 1px solid #777;
-  padding: 5px 0px;
-  padding-left: 25px;
-  width: 250px;
-  color: white;
+.input-comment{
+  outline: none;
+  outline: 0;
+  position: absolute; 
+  z-index: 1;
 }
+
+.input_sign {
+  border: 0;
+  border-bottom: 1px solid #777;
+  background-color: black;
+  outline: 0; 
+  color: white;
+  padding: 5px 25px;
+  width: 225px;
+}
+
+.input_sign:focus {
+  border-bottom: 1px solid white;
+}
+
+.input_comment {
+  border: 0;
+  background-color: black;
+  color: white;
+  padding: 5px 5px;
+  width: 150px;
+  font-family: inherit;
+  resize: none;
+}
+
