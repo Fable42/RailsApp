@@ -1,0 +1,5 @@
+<%= form_with(url: search_path, method: :post, class: "") do |form| %>
+  <%= form.text_field :query, placeholder: "Search", autocomplete: "off", class: 'input_search br-10 text-sm' %>
+
+  <%= image_submit_tag("search", style: 'margin-left: -40px; margin-bottom: -7px;') %>
+<% end %>

@@ -49,14 +49,6 @@ class PostsController < ApplicationController
     params.require(:post).permit(:body, :user_id, images: [])
   end  
 
-  def post_paramss
-    if action_name == 'update' && params[:post][:images].first.blank?
-      params.require(:post).permit(:body, :user_id)
-    else
-      params.require(:post).permit(:body, :user_id, images: [])
-    end
-  end
-
   def set_post
     @post = Post.find(params[:id])
   end

@@ -37,3 +37,13 @@
 .input_sign:def {
   border-bottom: 1px solid white;
 }
+
+.input_search {
+  border: 0;
+  background-color: #1E1E1E;
+  outline: 0; 
+  color: #777;
+  padding: 5px 25px;
+  width: 300px;
+  height: 30px;
+}

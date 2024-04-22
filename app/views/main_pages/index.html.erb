@@ -7,11 +7,11 @@
     </div>
 
   <div id="posts" class="posts-container ml-40 mr-40 mt-20"
-    data-controller="pagination"
-    data-pagination-target="posts"
-    data-pagination-url-value="<%= posts_url %>"
-    data-pagination-page-value="<%= 2 %>">
-    <%= render @posts, locals: { user: @user, comment: @comment } %>
+      data-controller="pagination"
+      data-pagination-target="posts"
+      data-pagination-url-value="<%= posts_url %>"
+      data-pagination-page-value="<%= 2 %>">
+      <%= render @posts, locals: { user: @user, comment: @comment } %>
   </div>
 
   <div class="subs-container mr-a mt-30"> 

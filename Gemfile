@@ -75,3 +75,7 @@ end
 gem 'devise', '~> 4.9', '>= 4.9.3'
 
 gem 'kaminari', '~> 1.2', '>= 1.2.2'
+
+gem 'searchkick'
+
+gem 'elasticsearch', '~> 7.17'

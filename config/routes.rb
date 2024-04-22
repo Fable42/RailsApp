@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'search', to: 'search#index', as: 'search'
+
   resources :profiles, only: %i[ show ]
 
   resources :posts do
