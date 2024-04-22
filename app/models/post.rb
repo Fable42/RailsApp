@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  searchkick text_middle: %i[body]
   belongs_to :user
   has_many_attached :images, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
@@ -20,13 +21,13 @@ class Post < ApplicationRecord
 
   def file_type
     images.each do |image|
-      unless image.content_type.in?(%w(image/jpeg image/png image/gif video/mp4 video/mov))
-        errors.add(:images, 'Must be an image or video of a specific format')
+      unless image.content_type.in?(%w(image/jpeg image/png image/gif))
+        errors.add(:images, 'Must be an image')
       end
     end
   end
 
   def images_presence
-    errors.add(:images, 'Must be at least one video or image') if images.blank?
+    errors.add(:images, 'Must be at least one image') if images.blank?
   end  
 end
